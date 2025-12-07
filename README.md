@@ -244,48 +244,88 @@ Toate cele trei tehnici au fost rulate separat pe clasa `DeliveryService.java`:
 | **BVA** | 38        | 100% (16/16)  | 100% (14/14)    | 67/67        | 9/9        |
 | **CEG** | 27        | 100% (16/16)  | 100% (14/14)    | 67/67        | 9/9        |
 
+### IMPORTANT: Code Coverage vs. Input Space Coverage
+
+**Code Coverage (ce măsoară JaCoCo):**
+- Procentul de **linii de cod** executate
+- Procentul de **ramuri (if/else)** parcurse
+- NU garantează testarea tuturor combinațiilor de intrări!
+
+**Input Space Coverage (acoperirea spațiului de intrare):**
+- Procentul de **combinații de partiții** testate
+- Pentru funcția noastră: 3 partiții distanță × 4 partiții greutate = **12 combinații valide**
+
+| Tehnică | Code Coverage | Combinații testate | Input Space Coverage |
+|---------|---------------|-------------------|----------------------|
+| **EP**  | 100%          | ~5 reprezentative  | **~42%** (5/12)      |
+| **BVA** | 100%          | Focus pe limite    | Parțial              |
+| **CEG** | 100%          | **12 complete**    | **100%** (12/12)     |
+
+**Concluzie critică:** EP atinge 100% code coverage cu doar câteva teste reprezentative, dar **NU testează toate combinațiile**. De exemplu, EP nu testează explicit combinația "distanță lungă + greutate medie" dacă nu a fost aleasă ca reprezentant.
+
 ### Comparație și Comentarii
 
 #### Observații privind acoperirea:
 
-Toate cele trei tehnici ating **100% coverage** atât pentru linii cât și pentru ramuri (branches). Acest lucru este specific funcției testate care are o structură relativ simplă cu decizii clare.
+Toate cele trei tehnici ating **100% code coverage** (linii și branches). Însă aceasta este o **metrică înșelătoare** pentru EP - codul este executat, dar nu toate căile logice sunt verificate cu date de test diverse.
 
 #### Analiza eficienței:
 
 | Criteriu | EP | BVA | CEG |
 |----------|----|----|-----|
 | Număr teste | 15 (minim) | 38 (maxim) | 27 (mediu) |
-| Eficiență (coverage/test) | Cea mai mare | Cea mai mică | Medie |
-| Detectare erori la limite | Slabă | Excelentă | Moderată |
-| Detectare erori de logică | Bună | Moderată | Excelentă |
-| Combinații testate | Reprezentative | La granițe | Complete |
+| Code Coverage | 100% | 100% | 100% |
+| Input Space Coverage | ~42% | Parțial | **100%** |
+| Detectare erori la limite | Slabă | **Excelentă** | Moderată |
+| Detectare erori combinații | Slabă | Moderată | **Excelentă** |
 
 #### Concluzii detaliate:
 
 1. **Equivalence Partitioning (EP)** - 15 teste
    - [+] Cel mai eficient din punct de vedere al numărului de teste
-   - [+] Acoperă toate partițiile logice cu reprezentanți
+   - [+] Atinge 100% code coverage rapid
+   - [-] **NU testează toate combinațiile** - doar reprezentanți din fiecare partiție
    - [-] Poate rata erori "off-by-one" la granițele intervalelor
-   - [-] Nu testează explicit valorile limită
-   - Recomandat pentru: testare rapidă, smoke testing
+   - [-] Poate rata erori care apar doar în anumite combinații
+   - Recomandat pentru: testare rapidă, smoke testing, verificare inițială
 
 2. **Boundary Value Analysis (BVA)** - 38 teste
    - [+] Excelent pentru detectarea erorilor la granițe
    - [+] Testează sistematic toate pragurile (0, 10, 50 km; 0, 2, 5, 15 kg)
    - [+] Cel mai robust pentru funcții cu praguri multiple
-   - [-] Număr mare de teste, posibil redundante
+   - [-] Număr mare de teste
+   - [-] Nu acoperă explicit toate combinațiile (folosește valori nominale)
    - Recomandat pentru: funcții critice cu praguri, validări numerice
 
 3. **Cause-Effect Graphing (CEG)** - 27 teste
-   - [+] Acoperire sistematică a tuturor combinațiilor cauză-efect
+   - [+] **Singura tehnică care testează TOATE combinațiile** (12/12)
    - [+] Documentație clară prin tabelul de decizie
-   - [+] Bun echilibru între acoperire și număr de teste
-   - [-] Poate genera teste redundante pentru condiții mutual exclusive
-   - Recomandat pentru: logică complexă cu multiple condiții interdependente
+   - [+] Poate detecta erori care apar doar în combinații specifice
+   - [-] Mai complex de implementat
+   - Recomandat pentru: logică complexă, asigurarea că toate căile sunt testate
+
+#### Exemplu concret - Ce ratează EP:
+
+EP testează reprezentanți precum:
+- (5 km, 1 kg) - scurt + ușor
+- (25 km, 3 kg) - mediu + mediu  
+- (75 km, 10 kg) - lung + greu
+
+Dar **NU testează explicit** combinații precum:
+- (5 km, 20 kg) - scurt + foarte greu
+- (75 km, 1 kg) - lung + ușor
+- (25 km, 10 kg) - mediu + greu
+
+Dacă ar exista o eroare care apare **doar** la combinația "mediu + greu", EP ar rata-o!
 
 #### Recomandare finală:
 
-Pentru funcția `calculateDeliveryFee`, **BVA** este tehnica cea mai potrivită deoarece funcția are multiple praguri (thresholds) unde erorile de tip "off-by-one" sunt cele mai probabile. Combinația **EP + BVA** oferă cel mai bun raport între acoperire și eficiență.
+Pentru funcția `calculateDeliveryFee`:
+- **CEG** oferă cea mai completă acoperire a combinațiilor
+- **BVA** este esențial pentru testarea pragurilor
+- **EP** este util doar ca primă verificare rapidă
+
+Combinația ideală: **CEG + BVA** pentru acoperire completă a combinațiilor ȘI a valorilor limită.
 
 ---
 
