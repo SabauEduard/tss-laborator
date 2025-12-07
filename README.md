@@ -203,18 +203,48 @@ Unde:
 | E5-E8 | Taxă greutate (0/4.50/8.00/15.00) |
 | E9 | Taxă totală calculată |
 
-#### Tabel de Decizie (extras):
+#### Tabel de Decizie COMPLET:
 
-| Test | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | Efect |
-|------|----|----|----|----|----|----|----|----|----|----|
-| T1 | T | - | - | - | - | - | - | - | - | E1 |
-| T2 | F | T | - | - | - | - | - | - | - | E1 |
-| T4 | F | F | T | - | - | T | - | - | - | E2+E5+E9 |
-| T8 | F | F | - | T | - | T | - | - | - | E3+E5+E9 |
-| T12 | F | F | - | - | T | T | - | - | - | E4+E5+E9 |
-| T15 | F | F | - | - | T | - | - | - | T | E4+E8+E9 |
+**Cazuri invalide (Exception):**
 
-**Total teste CEG: 15** (acoperire completă a tabelului de decizie)
+| Test | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | Efecte | Exemplu (d, w) |
+|------|----|----|----|----|----|----|----|----|----|----|----------------|
+| T1 | T | - | - | - | - | - | - | - | - | E1 | (-5, 1) |
+| T2 | F | T | - | - | - | - | - | - | - | E1 | (5, -1) |
+
+**Cazuri valide - Distanță scurtă (0 < d ≤ 10):**
+
+| Test | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | Efecte | Exemplu (d, w) |
+|------|----|----|----|----|----|----|----|----|----|----|----------------|
+| T3 | F | F | T | - | - | T | - | - | - | E2, E5, E9 | (5, 1) |
+| T4 | F | F | T | - | - | - | T | - | - | E2, E6, E9 | (5, 3) |
+| T5 | F | F | T | - | - | - | - | T | - | E2, E7, E9 | (5, 10) |
+| T6 | F | F | T | - | - | - | - | - | T | E2, E8, E9 | (5, 20) |
+
+**Cazuri valide - Distanță medie (10 < d ≤ 50):**
+
+| Test | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | Efecte | Exemplu (d, w) |
+|------|----|----|----|----|----|----|----|----|----|----|----------------|
+| T7 | F | F | - | T | - | T | - | - | - | E3, E5, E9 | (25, 1) |
+| T8 | F | F | - | T | - | - | T | - | - | E3, E6, E9 | (25, 3) |
+| T9 | F | F | - | T | - | - | - | T | - | E3, E7, E9 | (25, 10) |
+| T10 | F | F | - | T | - | - | - | - | T | E3, E8, E9 | (25, 20) |
+
+**Cazuri valide - Distanță lungă (d > 50):**
+
+| Test | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | Efecte | Exemplu (d, w) |
+|------|----|----|----|----|----|----|----|----|----|----|----------------|
+| T11 | F | F | - | - | T | T | - | - | - | E4, E5, E9 | (75, 1) |
+| T12 | F | F | - | - | T | - | T | - | - | E4, E6, E9 | (75, 3) |
+| T13 | F | F | - | - | T | - | - | T | - | E4, E7, E9 | (75, 10) |
+| T14 | F | F | - | - | T | - | - | - | T | E4, E8, E9 | (75, 20) |
+
+**Legendă:**
+- T = True, F = False, `-` = Don't care (mutual exclusiv)
+- C3, C4, C5 sunt mutual exclusive (distanța e într-o singură categorie)
+- C6, C7, C8, C9 sunt mutual exclusive (greutatea e într-o singură categorie)
+
+**Total teste CEG: 14** (2 invalide + 12 combinații valide = 3 × 4)
 
 ---
 
@@ -255,13 +285,13 @@ Toate cele trei tehnici au fost rulate separat pe clasa `DeliveryService.java`:
 - Procentul de **combinații de partiții/limite** testate
 - EP: 4 partiții distanță × 5 partiții greutate = **20 combinații totale**
 - BVA: 9 valori limită distanță × 12 valori limită greutate = **108 combinații totale**
-- CEG: 3 partiții valide distanță × 4 partiții valide greutate = **12 combinații valide** + cazuri invalide
+- CEG: 3 partiții valide distanță × 4 partiții valide greutate = **12 combinații valide** + 2 cazuri invalide = **14 total**
 
 | Tehnică | Code Coverage | Combinații posibile | Combinații testate | Input Space Coverage |
 |---------|---------------|---------------------|-------------------|----------------------|
 | **EP**  | 100%          | 20                  | 15                | **75%**              |
 | **BVA** | 100%          | 108                 | 38                | **35%**              |
-| **CEG** | 100%          | 12 valide + invalide| 27                | **100%** (valide)    |
+| **CEG** | 100%          | 14 (12 valide + 2 invalide) | 14+       | **100%**             |
 
 **Concluzie critică:** 
 - **EP** atinge 100% code coverage cu 15 teste, dar nu testează toate cele 20 de combinații posibile
@@ -278,12 +308,11 @@ Toate cele trei tehnici ating **100% code coverage** (linii și branches). Îns�
 
 | Criteriu | EP | BVA | CEG |
 |----------|----|----|-----|
-| Teste implementate | 15 | 38 | 27 |
-| Combinații posibile | 20 (4×5) | 108 (9×12) | 12 valide |
+| Teste teoretice necesare | 20 (4×5) | 108 (9×12) | 14 (3×4 + 2) |
 | Code Coverage | 100% | 100% | 100% |
-| Input Space Coverage | 75% (15/20) | 35% (38/108) | **100%** |
+| Input Space Coverage | Parțial | Parțial (limite) | **100%** |
 | Detectare erori la limite | Slabă | **Excelentă** | Moderată |
-| Detectare erori combinații | Moderată | Slabă | **Excelentă** |
+| Detectare erori combinații | Slabă | Slabă | **Excelentă** |
 
 #### Concluzii detaliate:
 
