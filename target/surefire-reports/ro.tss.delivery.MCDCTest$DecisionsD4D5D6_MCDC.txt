@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ro.tss.delivery.MCDCTest$DecisionsD4D5D6_MCDC
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in ro.tss.delivery.MCDCTest$DecisionsD4D5D6_MCDC

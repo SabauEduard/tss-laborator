@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DeliveryServiceMutantEquivalent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delivery Fee Calculator - TSS Lab Project</a> &gt; <a href="index.source.html" class="el_package">ro.tss.delivery</a> &gt; <span class="el_source">DeliveryServiceMutantEquivalent.java</span></div><h1>DeliveryServiceMutantEquivalent.java</h1><pre class="source lang-java linenums">package ro.tss.delivery;
+
+/**
+ * MUTANT ECHIVALENT de ordinul 1.
+ * 
+ * MUTAȚIA APLICATĂ:
+ * =================
+ * Linia originală (în calculul weightFee):
+ *     if (weightKg &lt;= 2.0) {
+ *         weightFee = 0.0;
+ *     }
+ * 
+ * Linia mutată:
+ *     if (weightKg &lt;= 2.0) {
+ *         weightFee = 0.0 * weightKg;  // Mutație: înmulțire cu weightKg
+ *     }
+ * 
+ * EXPLICAȚIE DE CE ESTE ECHIVALENT:
+ * =================================
+ * Mutația înmulțește 0.0 cu weightKg. Matematic:
+ *     0.0 * weightKg = 0.0 (pentru orice valoare a weightKg)
+ * 
+ * Deci comportamentul rămâne identic cu cel original:
+ * - În ambele cazuri, weightFee = 0.0 când weightKg &lt;= 2.0
+ * - Niciun test nu poate distinge între versiunea originală și mutant
+ * - Mutantul este semantic echivalent cu originalul
+ * 
+ * TIPUL MUTAȚIEI:
+ * ===============
+ * - Operator de mutație: Scalar Variable Replacement (SVR) / 
+ *   Arithmetic Operator Insertion (AOI)
+ * - Înlocuirea unei constante (0.0) cu o expresie (0.0 * weightKg)
+ *   care produce același rezultat pentru toate valorile posibile
+ */
+<span class="fc" id="L35">public class DeliveryServiceMutantEquivalent {</span>
+
+    private static final double BASE_FEE = 5.00;
+    private static final double RATE_SHORT_DISTANCE = 0.50;
+    private static final double RATE_MEDIUM_DISTANCE = 0.40;
+    private static final double RATE_LONG_DISTANCE = 0.30;
+    private static final double DISTANCE_THRESHOLD_SHORT = 10.0;
+    private static final double DISTANCE_THRESHOLD_MEDIUM = 50.0;
+    private static final double WEIGHT_FEE_MEDIUM = 4.50;
+    private static final double WEIGHT_FEE_HEAVY = 8.00;
+    private static final double WEIGHT_FEE_VERY_HEAVY = 15.00;
+    private static final double WEIGHT_THRESHOLD_LIGHT = 2.0;
+    private static final double WEIGHT_THRESHOLD_MEDIUM = 5.0;
+    private static final double WEIGHT_THRESHOLD_HEAVY = 15.0;
+
+    public double calculateDeliveryFee(double distanceKm, double weightKg) {
+<span class="pc bpc" id="L51" title="2 of 4 branches missed.">        if (distanceKm &lt;= 0 || weightKg &lt;= 0) {</span>
+<span class="nc" id="L52">            throw new IllegalArgumentException(&quot;Distanța și greutatea trebuie să fie pozitive.&quot;);</span>
+        }
+
+        double distanceFee;
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (distanceKm &lt;= DISTANCE_THRESHOLD_SHORT) {</span>
+<span class="fc" id="L57">            distanceFee = distanceKm * RATE_SHORT_DISTANCE;</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        } else if (distanceKm &lt;= DISTANCE_THRESHOLD_MEDIUM) {</span>
+<span class="nc" id="L59">            distanceFee = distanceKm * RATE_MEDIUM_DISTANCE;</span>
+        } else {
+<span class="nc" id="L61">            distanceFee = distanceKm * RATE_LONG_DISTANCE;</span>
+        }
+
+        double weightFee;
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (weightKg &lt;= WEIGHT_THRESHOLD_LIGHT) {</span>
+            // ========== MUTAȚIE ECHIVALENTĂ ==========
+            // Original: weightFee = 0.0;
+            // Mutant:   weightFee = 0.0 * weightKg;
+            // 0.0 * orice = 0.0, deci comportamentul este identic
+<span class="fc" id="L70">            weightFee = 0.0 * weightKg;  // MUTAȚIE ECHIVALENTĂ</span>
+            // =========================================
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_MEDIUM) {</span>
+<span class="fc" id="L73">            weightFee = WEIGHT_FEE_MEDIUM;</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_HEAVY) {</span>
+<span class="fc" id="L75">            weightFee = WEIGHT_FEE_HEAVY;</span>
+        } else {
+<span class="fc" id="L77">            weightFee = WEIGHT_FEE_VERY_HEAVY;</span>
+        }
+
+<span class="fc" id="L80">        return BASE_FEE + distanceFee + weightFee;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

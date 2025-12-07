@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DeliveryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delivery Fee Calculator - TSS Lab Project</a> &gt; <a href="index.source.html" class="el_package">ro.tss.delivery</a> &gt; <span class="el_source">DeliveryService.java</span></div><h1>DeliveryService.java</h1><pre class="source lang-java linenums">package ro.tss.delivery;
+
+/**
+ * Serviciu pentru calculul taxei de livrare.
+ * 
+ * Taxa totală (T_totală) = T_B + T_D + T_G
+ * unde:
+ * - T_B = Taxa de Bază (5.00 RON)
+ * - T_D = Taxa pe Distanță (variabilă în funcție de km)
+ * - T_G = Taxa pe Greutate (fixă per interval)
+ */
+<span class="fc" id="L12">public class DeliveryService {</span>
+
+    // Constante pentru taxa de bază
+    private static final double BASE_FEE = 5.00;
+
+    // Constante pentru taxa pe distanță (RON/km)
+    private static final double RATE_SHORT_DISTANCE = 0.50;    // 0-10 km
+    private static final double RATE_MEDIUM_DISTANCE = 0.40;   // 10-50 km
+    private static final double RATE_LONG_DISTANCE = 0.30;     // &gt;50 km
+
+    // Praguri distanță (km)
+    private static final double DISTANCE_THRESHOLD_SHORT = 10.0;
+    private static final double DISTANCE_THRESHOLD_MEDIUM = 50.0;
+
+    // Constante pentru taxa pe greutate (RON)
+    private static final double WEIGHT_FEE_LIGHT = 0.00;       // 0-2 kg
+    private static final double WEIGHT_FEE_MEDIUM = 4.50;      // 2-5 kg
+    private static final double WEIGHT_FEE_HEAVY = 8.00;       // 5-15 kg
+    private static final double WEIGHT_FEE_VERY_HEAVY = 15.00; // &gt;15 kg
+
+    // Praguri greutate (kg)
+    private static final double WEIGHT_THRESHOLD_LIGHT = 2.0;
+    private static final double WEIGHT_THRESHOLD_MEDIUM = 5.0;
+    private static final double WEIGHT_THRESHOLD_HEAVY = 15.0;
+
+    /**
+     * Calculează taxa totală de livrare pe baza distanței și greutății.
+     *
+     * @param distanceKm Distanța de livrare în kilometri (trebuie să fie &gt; 0)
+     * @param weightKg   Greutatea pachetului în kilograme (trebuie să fie &gt; 0)
+     * @return Taxa totală de livrare în RON
+     * @throws IllegalArgumentException dacă distanța sau greutatea nu sunt pozitive
+     */
+    public double calculateDeliveryFee(double distanceKm, double weightKg) {
+        // C1: Verificare distanță validă
+        // C2: Verificare greutate validă
+<span class="fc bfc" id="L48" title="All 4 branches covered.">        if (distanceKm &lt;= 0 || weightKg &lt;= 0) {</span>
+<span class="fc" id="L49">            throw new IllegalArgumentException(&quot;Distanța și greutatea trebuie să fie pozitive.&quot;);</span>
+        }
+
+        // Calcul T_D (Taxa pe Distanță)
+        double distanceFee;
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (distanceKm &lt;= DISTANCE_THRESHOLD_SHORT) {           // C3: d &lt;= 10</span>
+<span class="fc" id="L55">            distanceFee = distanceKm * RATE_SHORT_DISTANCE;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        } else if (distanceKm &lt;= DISTANCE_THRESHOLD_MEDIUM) {   // C4: d &lt;= 50</span>
+<span class="fc" id="L57">            distanceFee = distanceKm * RATE_MEDIUM_DISTANCE;</span>
+        } else {                                                 // C5: d &gt; 50
+<span class="fc" id="L59">            distanceFee = distanceKm * RATE_LONG_DISTANCE;</span>
+        }
+
+        // Calcul T_G (Taxa pe Greutate)
+        double weightFee;
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (weightKg &lt;= WEIGHT_THRESHOLD_LIGHT) {               // C6: w &lt;= 2</span>
+<span class="fc" id="L65">            weightFee = WEIGHT_FEE_LIGHT;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_MEDIUM) {       // C7: w &lt;= 5</span>
+<span class="fc" id="L67">            weightFee = WEIGHT_FEE_MEDIUM;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_HEAVY) {        // C8: w &lt;= 15</span>
+<span class="fc" id="L69">            weightFee = WEIGHT_FEE_HEAVY;</span>
+        } else {                                                 // C9: w &gt; 15
+<span class="fc" id="L71">            weightFee = WEIGHT_FEE_VERY_HEAVY;</span>
+        }
+
+        // Taxa Totală = T_B + T_D + T_G
+<span class="fc" id="L75">        return BASE_FEE + distanceFee + weightFee;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DeliveryServiceMutantSurvived.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delivery Fee Calculator - TSS Lab Project</a> &gt; <a href="index.source.html" class="el_package">ro.tss.delivery</a> &gt; <span class="el_source">DeliveryServiceMutantSurvived.java</span></div><h1>DeliveryServiceMutantSurvived.java</h1><pre class="source lang-java linenums">package ro.tss.delivery;
+
+/**
+ * MUTANT NE-ECHIVALENT care NU ESTE OMORÂT de teste (SUPRAVIEȚUIEȘTE).
+ * 
+ * MUTAȚIA APLICATĂ:
+ * =================
+ * Linia originală:
+ *     if (distanceKm &lt;= 0 || weightKg &lt;= 0) {
+ * 
+ * Linia mutată:
+ *     if (distanceKm &lt; 0 || weightKg &lt;= 0) {    // Mutație: &lt;= înlocuit cu &lt; pentru distanceKm
+ * 
+ * TIPUL MUTAȚIEI:
+ * ===============
+ * - Operator de mutație: Relational Operator Replacement (ROR)
+ * - Înlocuirea operatorului &lt;= cu &lt; pentru prima condiție
+ * 
+ * EXPLICAȚIE DE CE NU ESTE ECHIVALENT:
+ * ====================================
+ * Mutația schimbă comportamentul pentru cazul exact distanceKm = 0:
+ * 
+ * | distanceKm | Original (&lt;=)        | Mutant (&lt;)           |
+ * |------------|----------------------|----------------------|
+ * | -0.01      | T → Exception       | T → Exception       |
+ * | 0          | T → Exception       | F → Calculează!     | ← DIFERENȚĂ!
+ * | 0.01       | F → Calculează      | F → Calculează      |
+ * 
+ * Pentru d = 0:
+ * - Original: aruncă IllegalArgumentException
+ * - Mutant:   calculează distanceFee = 0 * 0.50 = 0 (NU aruncă excepție!)
+ * 
+ * DE CE SUPRAVIEȚUIEȘTE (nu este omorât de testele noastre):
+ * =========================================================
+ * 
+ * Testul BVA_D2 testează exact distanceKm = 0:
+ *     assertThrows(IllegalArgumentException.class,
+ *             () -&gt; service.calculateDeliveryFee(0, NOMINAL_WEIGHT));
+ * 
+ * ÎNSĂ acest test va EȘUA doar dacă rulăm testele pe această versiune mutantă!
+ * 
+ * Pentru a demonstra că mutantul supraviețuiește, trebuie să alegem un test
+ * care NU testează explicit cazul d = 0.
+ * 
+ * ALEGEM TESTUL: EP_D2 (d = 5, w = 1)
+ * 
+ * Acest test verifică:
+ *     service.calculateDeliveryFee(5, 1) == 7.50
+ * 
+ * Pe mutant:
+ * - d = 5 &gt; 0 → prima condiție (d &lt; 0) este F
+ * - w = 1 &gt; 0 → a doua condiție (w &lt;= 0) este F
+ * - Nu se aruncă excepție
+ * - distanceFee = 5 * 0.50 = 2.50
+ * - weightFee = 0.00
+ * - Total = 5.00 + 2.50 + 0.00 = 7.50 RON ✓
+ * 
+ * Rezultatul este IDENTIC cu originalul pentru acest test!
+ * → Mutantul SUPRAVIEȚUIEȘTE acestui test
+ * 
+ * NOTĂ: Mutantul ar fi omorât de BVA_D2 care testează exact d = 0,
+ * dar demonstrăm că pentru testul EP_D2 (d = 5, w = 1), mutantul supraviețuiește.
+ */
+<span class="fc" id="L64">public class DeliveryServiceMutantSurvived {</span>
+
+    private static final double BASE_FEE = 5.00;
+    private static final double RATE_SHORT_DISTANCE = 0.50;
+    private static final double RATE_MEDIUM_DISTANCE = 0.40;
+    private static final double RATE_LONG_DISTANCE = 0.30;
+    private static final double DISTANCE_THRESHOLD_SHORT = 10.0;
+    private static final double DISTANCE_THRESHOLD_MEDIUM = 50.0;
+    private static final double WEIGHT_FEE_LIGHT = 0.00;
+    private static final double WEIGHT_FEE_MEDIUM = 4.50;
+    private static final double WEIGHT_FEE_HEAVY = 8.00;
+    private static final double WEIGHT_FEE_VERY_HEAVY = 15.00;
+    private static final double WEIGHT_THRESHOLD_LIGHT = 2.0;
+    private static final double WEIGHT_THRESHOLD_MEDIUM = 5.0;
+    private static final double WEIGHT_THRESHOLD_HEAVY = 15.0;
+
+    public double calculateDeliveryFee(double distanceKm, double weightKg) {
+        // ========== MUTAȚIE NE-ECHIVALENTĂ (SUPRAVIEȚUIEȘTE) ==========
+        // Original: if (distanceKm &lt;= 0 || weightKg &lt;= 0)
+        // Mutant:   if (distanceKm &lt; 0 || weightKg &lt;= 0)
+<span class="pc bpc" id="L84" title="2 of 4 branches missed.">        if (distanceKm &lt; 0 || weightKg &lt;= 0) {  // MUTAȚIE: &lt;= schimbat în &lt; pentru distanceKm</span>
+        // ==============================================================
+<span class="nc" id="L86">            throw new IllegalArgumentException(&quot;Distanța și greutatea trebuie să fie pozitive.&quot;);</span>
+        }
+
+        double distanceFee;
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (distanceKm &lt;= DISTANCE_THRESHOLD_SHORT) {</span>
+<span class="fc" id="L91">            distanceFee = distanceKm * RATE_SHORT_DISTANCE;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        } else if (distanceKm &lt;= DISTANCE_THRESHOLD_MEDIUM) {</span>
+<span class="nc" id="L93">            distanceFee = distanceKm * RATE_MEDIUM_DISTANCE;</span>
+        } else {
+<span class="nc" id="L95">            distanceFee = distanceKm * RATE_LONG_DISTANCE;</span>
+        }
+
+        double weightFee;
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (weightKg &lt;= WEIGHT_THRESHOLD_LIGHT) {</span>
+<span class="fc" id="L100">            weightFee = WEIGHT_FEE_LIGHT;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_MEDIUM) {</span>
+<span class="nc" id="L102">            weightFee = WEIGHT_FEE_MEDIUM;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_HEAVY) {</span>
+<span class="nc" id="L104">            weightFee = WEIGHT_FEE_HEAVY;</span>
+        } else {
+<span class="nc" id="L106">            weightFee = WEIGHT_FEE_VERY_HEAVY;</span>
+        }
+
+<span class="fc" id="L109">        return BASE_FEE + distanceFee + weightFee;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
