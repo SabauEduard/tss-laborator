@@ -252,16 +252,21 @@ Toate cele trei tehnici au fost rulate separat pe clasa `DeliveryService.java`:
 - NU garantează testarea tuturor combinațiilor de intrări!
 
 **Input Space Coverage (acoperirea spațiului de intrare):**
-- Procentul de **combinații de partiții** testate
-- Pentru funcția noastră: 3 partiții distanță × 4 partiții greutate = **12 combinații valide**
+- Procentul de **combinații de partiții/limite** testate
+- EP: 4 partiții distanță × 5 partiții greutate = **20 combinații totale**
+- BVA: 9 valori limită distanță × 12 valori limită greutate = **108 combinații totale**
+- CEG: 3 partiții valide distanță × 4 partiții valide greutate = **12 combinații valide** + cazuri invalide
 
-| Tehnică | Code Coverage | Combinații testate | Input Space Coverage |
-|---------|---------------|-------------------|----------------------|
-| **EP**  | 100%          | ~5 reprezentative  | **~42%** (5/12)      |
-| **BVA** | 100%          | Focus pe limite    | Parțial              |
-| **CEG** | 100%          | **12 complete**    | **100%** (12/12)     |
+| Tehnică | Code Coverage | Combinații posibile | Combinații testate | Input Space Coverage |
+|---------|---------------|---------------------|-------------------|----------------------|
+| **EP**  | 100%          | 20                  | 15                | **75%**              |
+| **BVA** | 100%          | 108                 | 38                | **35%**              |
+| **CEG** | 100%          | 12 valide + invalide| 27                | **100%** (valide)    |
 
-**Concluzie critică:** EP atinge 100% code coverage cu doar câteva teste reprezentative, dar **NU testează toate combinațiile**. De exemplu, EP nu testează explicit combinația "distanță lungă + greutate medie" dacă nu a fost aleasă ca reprezentant.
+**Concluzie critică:** 
+- **EP** atinge 100% code coverage cu 15 teste, dar nu testează toate cele 20 de combinații posibile
+- **BVA** ar necesita 108 teste pentru acoperire completă, dar în practică se testează ~38 (limitele cu valori nominale)
+- **CEG** acoperă sistematic toate combinațiile valide (12) plus cazurile de eroare
 
 ### Comparație și Comentarii
 
@@ -273,11 +278,12 @@ Toate cele trei tehnici ating **100% code coverage** (linii și branches). Îns�
 
 | Criteriu | EP | BVA | CEG |
 |----------|----|----|-----|
-| Număr teste | 15 (minim) | 38 (maxim) | 27 (mediu) |
+| Teste implementate | 15 | 38 | 27 |
+| Combinații posibile | 20 (4×5) | 108 (9×12) | 12 valide |
 | Code Coverage | 100% | 100% | 100% |
-| Input Space Coverage | ~42% | Parțial | **100%** |
+| Input Space Coverage | 75% (15/20) | 35% (38/108) | **100%** |
 | Detectare erori la limite | Slabă | **Excelentă** | Moderată |
-| Detectare erori combinații | Slabă | Moderată | **Excelentă** |
+| Detectare erori combinații | Moderată | Slabă | **Excelentă** |
 
 #### Concluzii detaliate:
 
@@ -304,19 +310,19 @@ Toate cele trei tehnici ating **100% code coverage** (linii și branches). Îns�
    - [-] Mai complex de implementat
    - Recomandat pentru: logică complexă, asigurarea că toate căile sunt testate
 
-#### Exemplu concret - Ce ratează EP:
+#### Exemplu concret - Ce ratează fiecare tehnică:
 
-EP testează reprezentanți precum:
-- (5 km, 1 kg) - scurt + ușor
-- (25 km, 3 kg) - mediu + mediu  
-- (75 km, 10 kg) - lung + greu
+**EP (15 din 20 combinații = 75%):**
+Dacă testele EP nu includ combinația "lung + foarte greu", o eroare specifică acestei combinații nu va fi detectată.
 
-Dar **NU testează explicit** combinații precum:
-- (5 km, 20 kg) - scurt + foarte greu
-- (75 km, 1 kg) - lung + ușor
-- (25 km, 10 kg) - mediu + greu
+**BVA (38 din 108 combinații = 35%):**
+BVA testează limitele, dar nu toate combinațiile lor. De exemplu:
+- Testează d=10.0 cu w=1.0 (nominal)
+- Testează d=5.0 (nominal) cu w=2.0
+- Dar NU testează d=10.0 cu w=2.0 (ambele la limită)
 
-Dacă ar exista o eroare care apare **doar** la combinația "mediu + greu", EP ar rata-o!
+**CEG (12/12 combinații valide = 100%):**
+CEG acoperă sistematic TOATE combinațiile valide prin tabelul de decizie.
 
 #### Recomandare finală:
 
