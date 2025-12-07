@@ -61,7 +61,7 @@
  * NOTĂ: Mutantul ar fi omorât de BVA_D2 care testează exact d = 0,
  * dar demonstrăm că pentru testul EP_D2 (d = 5, w = 1), mutantul supraviețuiește.
  */
-<span class="fc" id="L64">public class DeliveryServiceMutantSurvived {</span>
+<span class="nc" id="L64">public class DeliveryServiceMutantSurvived {</span>
 
     private static final double BASE_FEE = 5.00;
     private static final double RATE_SHORT_DISTANCE = 0.50;
@@ -81,14 +81,14 @@
         // ========== MUTAȚIE NE-ECHIVALENTĂ (SUPRAVIEȚUIEȘTE) ==========
         // Original: if (distanceKm &lt;= 0 || weightKg &lt;= 0)
         // Mutant:   if (distanceKm &lt; 0 || weightKg &lt;= 0)
-<span class="pc bpc" id="L84" title="2 of 4 branches missed.">        if (distanceKm &lt; 0 || weightKg &lt;= 0) {  // MUTAȚIE: &lt;= schimbat în &lt; pentru distanceKm</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">        if (distanceKm &lt; 0 || weightKg &lt;= 0) {  // MUTAȚIE: &lt;= schimbat în &lt; pentru distanceKm</span>
         // ==============================================================
 <span class="nc" id="L86">            throw new IllegalArgumentException(&quot;Distanța și greutatea trebuie să fie pozitive.&quot;);</span>
         }
 
         double distanceFee;
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (distanceKm &lt;= DISTANCE_THRESHOLD_SHORT) {</span>
-<span class="fc" id="L91">            distanceFee = distanceKm * RATE_SHORT_DISTANCE;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (distanceKm &lt;= DISTANCE_THRESHOLD_SHORT) {</span>
+<span class="nc" id="L91">            distanceFee = distanceKm * RATE_SHORT_DISTANCE;</span>
 <span class="nc bnc" id="L92" title="All 2 branches missed.">        } else if (distanceKm &lt;= DISTANCE_THRESHOLD_MEDIUM) {</span>
 <span class="nc" id="L93">            distanceFee = distanceKm * RATE_MEDIUM_DISTANCE;</span>
         } else {
@@ -96,8 +96,8 @@
         }
 
         double weightFee;
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (weightKg &lt;= WEIGHT_THRESHOLD_LIGHT) {</span>
-<span class="fc" id="L100">            weightFee = WEIGHT_FEE_LIGHT;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (weightKg &lt;= WEIGHT_THRESHOLD_LIGHT) {</span>
+<span class="nc" id="L100">            weightFee = WEIGHT_FEE_LIGHT;</span>
 <span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_MEDIUM) {</span>
 <span class="nc" id="L102">            weightFee = WEIGHT_FEE_MEDIUM;</span>
 <span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (weightKg &lt;= WEIGHT_THRESHOLD_HEAVY) {</span>
@@ -106,7 +106,7 @@
 <span class="nc" id="L106">            weightFee = WEIGHT_FEE_VERY_HEAVY;</span>
         }
 
-<span class="fc" id="L109">        return BASE_FEE + distanceFee + weightFee;</span>
+<span class="nc" id="L109">        return BASE_FEE + distanceFee + weightFee;</span>
     }
 }
 

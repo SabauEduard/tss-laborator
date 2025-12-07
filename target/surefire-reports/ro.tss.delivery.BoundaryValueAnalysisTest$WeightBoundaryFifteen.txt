@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ro.tss.delivery.BoundaryValueAnalysisTest$WeightBoundaryFifteen
--------------------------------------------------------------------------------
-Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in ro.tss.delivery.BoundaryValueAnalysisTest$WeightBoundaryFifteen

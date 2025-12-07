@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ro.tss.delivery.CauseEffectGraphingTest" time="0.015" tests="27" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ro.tss.delivery.CauseEffectGraphingTest" time="0.066" tests="27" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,8 +12,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Users/esabau/.sdkman/candidates/java/21.0.8-tem/lib"/>
-    <property name="sun.java.command" value="/Users/esabau/code/facultate/tss/tss-laborator/target/surefire/surefirebooter-20251207172143228_3.jar /Users/esabau/code/facultate/tss/tss-laborator/target/surefire 2025-12-07T17-21-43_193-jvmRun1 surefire-20251207172143228_1tmp surefire_0-20251207172143228_2tmp"/>
+    <property name="sun.java.command" value="/Users/esabau/code/facultate/tss/tss-laborator/target/surefire/surefirebooter-20251207175319230_3.jar /Users/esabau/code/facultate/tss/tss-laborator/target/surefire 2025-12-07T17-53-19_196-jvmRun1 surefire-20251207175319230_1tmp surefire_0-20251207175319230_2tmp"/>
     <property name="jdk.debug" value="release"/>
+    <property name="test" value="CauseEffectGraphingTest"/>
     <property name="surefire.test.class.path" value="/Users/esabau/code/facultate/tss/tss-laborator/target/test-classes:/Users/esabau/code/facultate/tss/tss-laborator/target/classes:/Users/esabau/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/Users/esabau/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/Users/esabau/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/esabau/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/Users/esabau/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/Users/esabau/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:/Users/esabau/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/Users/esabau/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/esabau"/>
@@ -25,10 +26,10 @@
     <property name="basedir" value="/Users/esabau/code/facultate/tss/tss-laborator"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
-    <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/esabau/code/facultate/tss/tss-laborator/target/surefire/surefirebooter-20251207172143228_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/esabau/code/facultate/tss/tss-laborator/target/surefire/surefirebooter-20251207175319230_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.8+9-LTS"/>
     <property name="user.name" value="esabau"/>
@@ -55,30 +56,30 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testT9_MediumDistance_MediumWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[1]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testT9_MediumDistance_MediumWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.01"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[1]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.012"/>
   <testcase name="testAllValidCombinations(String, double, double, double, String)[2]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[3]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[4]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[5]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[3]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[4]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[5]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testAllValidCombinations(String, double, double, double, String)[6]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[7]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[8]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[9]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[10]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[11]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testAllValidCombinations(String, double, double, double, String)[12]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testT6_ShortDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[7]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[8]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[9]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[10]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[11]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testAllValidCombinations(String, double, double, double, String)[12]" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testT6_ShortDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testT3_BothInvalid" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
-  <testcase name="testT10_MediumDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testT10_MediumDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testT11_MediumDistance_VeryHeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
   <testcase name="testT12_LongDistance_LightWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
   <testcase name="testT7_ShortDistance_VeryHeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
   <testcase name="testT5_ShortDistance_MediumWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testT2_InvalidWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testT13_LongDistance_MediumWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testT2_InvalidWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
+  <testcase name="testT13_LongDistance_MediumWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testT4_ShortDistance_LightWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
-  <testcase name="testT14_LongDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
+  <testcase name="testT14_LongDistance_HeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testT8_MediumDistance_LightWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>
   <testcase name="testT1_InvalidDistance" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.001"/>
   <testcase name="testT15_LongDistance_VeryHeavyWeight" classname="ro.tss.delivery.CauseEffectGraphingTest" time="0.0"/>

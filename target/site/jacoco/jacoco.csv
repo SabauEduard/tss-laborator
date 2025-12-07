@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantKilled,25,42,8,6,7,9,6,3,0,2
+Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantKilled,67,0,14,0,16,0,9,0,2,0
 Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryService,0,67,0,14,0,16,0,9,0,2
-Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantSurvived,34,33,10,4,9,7,7,2,0,2
-Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantEquivalent,18,51,5,9,4,12,4,5,0,2
+Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantSurvived,67,0,14,0,16,0,9,0,2,0
+Delivery Fee Calculator - TSS Lab Project,ro.tss.delivery,DeliveryServiceMutantEquivalent,69,0,14,0,16,0,9,0,2,0

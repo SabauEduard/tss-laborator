@@ -220,39 +220,72 @@ Unde:
 
 ## 3. Analiza Code Coverage
 
-### Cum se generează raportul de coverage:
+### Cum se generează rapoartele de coverage:
 
 ```bash
-# Rulare teste cu JaCoCo
-mvn clean test
+# Rulare toate testele cu JaCoCo
+mvn clean test jacoco:report -s .mvn/settings.xml
+
+# Rulare doar un set de teste (EP, BVA sau CEG)
+mvn clean test -Dtest=EquivalencePartitioningTest jacoco:report -s .mvn/settings.xml
+mvn clean test -Dtest=BoundaryValueAnalysisTest jacoco:report -s .mvn/settings.xml
+mvn clean test -Dtest=CauseEffectGraphingTest jacoco:report -s .mvn/settings.xml
 
 # Raportul se generează în: target/site/jacoco/index.html
 ```
 
-### Metrici de Coverage Așteptate:
+### Rezultate Code Coverage (JaCoCo)
 
-| Tehnică | Line Coverage | Branch Coverage | Observații |
-|---------|---------------|-----------------|------------|
-| EP | ~100% | ~100% | Acoperă toate partițiile |
-| BVA | 100% | 100% | Acoperă toate ramurile și limitele |
-| CEG | 100% | 100% | Acoperă toate combinațiile |
+Toate cele trei tehnici au fost rulate separat pe clasa `DeliveryService.java`:
 
-### Comparație și Comentarii:
+| Tehnică | Nr. Teste | Line Coverage | Branch Coverage | Instructions | Complexity |
+|---------|-----------|---------------|-----------------|--------------|------------|
+| **EP**  | 15        | 100% (16/16)  | 100% (14/14)    | 67/67        | 9/9        |
+| **BVA** | 38        | 100% (16/16)  | 100% (14/14)    | 67/67        | 9/9        |
+| **CEG** | 27        | 100% (16/16)  | 100% (14/14)    | 67/67        | 9/9        |
 
-1. **Equivalence Partitioning (EP)**
-   - [+] Eficient pentru acoperirea tuturor partițiilor logice
-   - [-] Poate rata erori la granițe
-   - Număr minim de teste pentru acoperire funcțională
+### Comparație și Comentarii
 
-2. **Boundary Value Analysis (BVA)**
-   - [+] Excelent pentru detectarea erorilor off-by-one
-   - [+] Cel mai bun pentru testarea valorilor critice
-   - Mai multe teste, dar mai sigure
+#### Observații privind acoperirea:
 
-3. **Cause-Effect Graphing (CEG)**
-   - [+] Acoperire sistematică a combinațiilor
-   - [+] Documentație clară a relațiilor input-output
-   - [-] Poate genera multe teste redundante
+Toate cele trei tehnici ating **100% coverage** atât pentru linii cât și pentru ramuri (branches). Acest lucru este specific funcției testate care are o structură relativ simplă cu decizii clare.
+
+#### Analiza eficienței:
+
+| Criteriu | EP | BVA | CEG |
+|----------|----|----|-----|
+| Număr teste | 15 (minim) | 38 (maxim) | 27 (mediu) |
+| Eficiență (coverage/test) | Cea mai mare | Cea mai mică | Medie |
+| Detectare erori la limite | Slabă | Excelentă | Moderată |
+| Detectare erori de logică | Bună | Moderată | Excelentă |
+| Combinații testate | Reprezentative | La granițe | Complete |
+
+#### Concluzii detaliate:
+
+1. **Equivalence Partitioning (EP)** - 15 teste
+   - [+] Cel mai eficient din punct de vedere al numărului de teste
+   - [+] Acoperă toate partițiile logice cu reprezentanți
+   - [-] Poate rata erori "off-by-one" la granițele intervalelor
+   - [-] Nu testează explicit valorile limită
+   - Recomandat pentru: testare rapidă, smoke testing
+
+2. **Boundary Value Analysis (BVA)** - 38 teste
+   - [+] Excelent pentru detectarea erorilor la granițe
+   - [+] Testează sistematic toate pragurile (0, 10, 50 km; 0, 2, 5, 15 kg)
+   - [+] Cel mai robust pentru funcții cu praguri multiple
+   - [-] Număr mare de teste, posibil redundante
+   - Recomandat pentru: funcții critice cu praguri, validări numerice
+
+3. **Cause-Effect Graphing (CEG)** - 27 teste
+   - [+] Acoperire sistematică a tuturor combinațiilor cauză-efect
+   - [+] Documentație clară prin tabelul de decizie
+   - [+] Bun echilibru între acoperire și număr de teste
+   - [-] Poate genera teste redundante pentru condiții mutual exclusive
+   - Recomandat pentru: logică complexă cu multiple condiții interdependente
+
+#### Recomandare finală:
+
+Pentru funcția `calculateDeliveryFee`, **BVA** este tehnica cea mai potrivită deoarece funcția are multiple praguri (thresholds) unde erorile de tip "off-by-one" sunt cele mai probabile. Combinația **EP + BVA** oferă cel mai bun raport între acoperire și eficiență.
 
 ---
 
